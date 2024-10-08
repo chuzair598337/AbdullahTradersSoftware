@@ -1,0 +1,126 @@
+Tables and Columns for Database Design:
+
+1. Staff Table
+id (Primary Key)
+name (String)
+Username (String)
+password_hash (String
+role_id (Foreign Key to Role)
+
+2. Role Table
+id (Primary Key) 
+role_name (String)
+
+3. Customer Table
+id (Primary Key)
+name (String)
+Description (String)
+phone (String)
+
+4. Supplier Table
+id (Primary Key)
+name (String)
+contact_info (String)
+Description (String)
+created_at (Timestamp)
+updated_at (Timestamp)
+
+5. Product Table
+id (Primary Key)
+nameEnglish (String)
+nameUrdu (String)
+Description (String)
+category_id (Foreign Key to Category)
+
+
+6. Category Table
+id (Primary Key)
+nameEnglish (String)
+nameUrdu (String)
+
+7. Purchase Table
+id (Primary Key)
+supplier_id (Foreign Key to Supplier)
+purchase_date (Date)
+Description (String)
+created_at (Timestamp)
+updated_at (Timestamp)
+
+8. Purchase Details Table
+id (Primary Key)
+purchase_id (Foreign Key to Purchase)
+product_id (Foreign Key to Product)
+quantity (Integer)
+purchase_price_per_unit (Decimal)
+Description (String)
+Status (String) // Paid,Unpaid, Partial_Paid
+created_at (Timestamp)
+updated_at (Timestamp)
+
+9. Sale Table
+id (Primary Key)
+customer_id (Foreign Key to Customer)
+sale_date (Date)
+Description (String)
+created_at (Timestamp)
+updated_at (Timestamp)
+
+10. Sale Details Table
+id (Primary Key)
+sale_id (Foreign Key to Sale)
+product_id (Foreign Key to Product)
+quantity (decimal)
+sale_price_per_unit (Decimal)
+Description (String)
+Status (String) // Paid,Unpaid, Partial_Paid
+created_at (Timestamp)
+updated_at (Timestamp)
+
+11. Stock Table
+id (Primary Key)
+product_id (Foreign Key to Product)
+quantity (Integer)
+purchase_price (Decimal)
+created_at (Timestamp)
+updated_at (Timestamp)
+
+12. Expense Table
+id (Primary Key)
+expense_type (String, e.g., Rent, Bill, Assets, etc.)
+expense_amount (Decimal)
+expense_date (Date)
+description (Text)
+created_at (Timestamp)
+updated_at (Timestamp)
+
+13. Customer_Payments Table
+Id (Primary Key)
+customer_id (Foreign Key to Customer)
+Payment (decimal)
+Status (String) // positive or negative
+Description (String)
+
+14. Supplier_Payments Table
+Id (Primary Key)
+supplier_id (Foreign Key to Supplier)
+Payment (decimal) 
+Status (String) // positive or negative
+Description (String)
+
+
+
+
+
+
+
+Relationships:
+Staff-Role: One staff member can have one role. (1-to-many: staff.role_id → role.id)
+Customer-Staff: A customer is registered by a staff member. (Optional relationship: can be added if needed)
+Supplier-Product: A supplier supplies multiple products. (1-to-many: product.supplier_id → supplier.id)
+Purchase-Purchase Details: One purchase can have multiple products. (1-to-many: purchase_details.purchase_id → purchase.id)
+Purchase-Product: A product can appear in multiple purchases. (Many-to-1: purchase_details.product_id → product.id)
+Sale-Sale Details: One sale can have multiple products sold. (1-to-many: sale_details.sale_id → sale.id)
+Sale-Product: A product can be sold multiple times at different prices. (Many-to-1: sale_details.product_id → product.id)
+Product-Category: A product belongs to one category. (Many-to-1: product.category_id → category.id)
+Stock-Product: A product has stock levels and last purchase price. (1-to-1: stock.product_id → product.id)
+Expense: Expense records are independent of other entities.
